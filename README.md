@@ -1,2 +1,2 @@
 # NekoCMS-v2
-Thew New Neko CMS v2
+The New Neko CMS v2
