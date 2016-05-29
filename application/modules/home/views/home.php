@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('Error!');
                      <div class="panel-body">
          					<form accept-charset="utf-8" method="POST" action="">
                             <input class="form-control" name="q" id="q" />
-                            <button class="btn btn-primary  btn-block" style="margin-top:10px;"><i class="fa fa-search-plus"></i> Search</button>
+                            <button class="btn btn-primary  btn-block"><i class="fa fa-search-plus"></i> Search</button>
                             </form>
                      </div>
 				</div>
