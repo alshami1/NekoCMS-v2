@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('Error!');
 
 
 /*
-*  NEKO SIMPLE CMS v1.0.3 R1
+*  NEKO SIMPLE CMS v1.0.3
 * @ Developer: Novi
 * @ Email: novhz0514@gmail.com
 * @ Github: github.com/novhex
