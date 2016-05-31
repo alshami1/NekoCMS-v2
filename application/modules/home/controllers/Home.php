@@ -30,8 +30,8 @@ class Home extends CI_Controller {
 
     public function index() {
 
-    	    $data['css_files']=$this->twitterbootstrap->load_css_files();
-    	    $data['js_files']=$this->twitterbootstrap->load_js_files();
+         $data['css_files']=$this->twitterbootstrap->load_css_files();
+         $data['js_files']=$this->twitterbootstrap->load_js_files();
           $data['pages'] =$this->home_model->_getHomeData('pages',NULL);
           $data['page_title']='Home';
           $data['latest_articles']=$this->home_model->_getLatest();

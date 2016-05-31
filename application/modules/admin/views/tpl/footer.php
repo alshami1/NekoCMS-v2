@@ -143,10 +143,6 @@ defined('BASEPATH') or exit('Error!');
 
 </script>
             <?php }?>
-            <?php if($current_uri_segment=='front-end-themes'){?>
-               <script type="text/javascript">
-                $('#tbl_themes').DataTable();
-              </script>
-            <?php }?>
+
 	</body>
 </html>

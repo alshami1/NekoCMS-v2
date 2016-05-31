@@ -145,15 +145,15 @@ defined('BASEPATH') or exit('Error!');
                             <!-- Dropdown-->
                             <li class="panel panel-default dropdown">
                                 <a data-toggle="collapse" href="#dropdown-icon">
-                                    <span class="icon fa fa-puzzle-piece"></span><span class="title">Themes</span>
+                                    <span class="icon fa fa-archive"></span><span class="title">Icons</span>
                                 </a>
                                 <!-- Dropdown level 1 -->
                                 <div id="dropdown-icon" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="<?php echo base_url('admin/front-end-themes');?>">My Front End Themes</a>
+                                            <li><a href="icons/glyphicons.html">Glyphicons</a>
                                             </li>
-                                            <li><a>Download Themes</a>
+                                            <li><a href="icons/font-awesome.html">Font Awesomes</a>
                                             </li>
                                         </ul>
                                     </div>
