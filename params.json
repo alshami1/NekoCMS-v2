@@ -1,0 +1,6 @@
+{
+  "name": "Nekocms-v2",
+  "tagline": "The New Neko CMS v2",
+  "body": "### What is Neko! CMS?\r\n\r\nNeko! CMS a very simple Content Management System built using PHP and MySQL and Twitter Bootstrap as CSS Framework. With Neko! CMS you can add dynamically pages , posts and even customize your page : changing the name of your webpage,adding social media account like facebook,twitter so that your viewers can follow you or add in social media,add photo in your Neko!CMS profile.\r\n\r\n### Features of Neko! CMS\r\n\r\n•\tSEO friendly urls\r\n•\tShare your post in social media like Facebook,Twitter and Google +\r\n•\tEasy to install . no need programming knowledge. Even you’re a newbie or not you can easily set up your own blog\r\n•\tResponsive design.can fit in different devices such tablets,smartphones,phablet (Thanks to bootstrap!)",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
