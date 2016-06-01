@@ -606,20 +606,4 @@ class Admin extends CI_Controller{
 
 	}
 
-
-public function t(){
-		$postsIDS = array();
-				
-				$writerposts = $this->blog_model->user_blogs($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'),NULL,NULL);
-
-				foreach($writerposts as $index){
-					array_push($postsIDS,$index['postID']);
-				}
-				if(in_array(17,$postsIDS)){
-					echo "ok"; //$this->blog_model->delete_blog($this->input->post('post_id',TRUE));		
-				}else{
-					echo "not";
-				}
-}
-
 }
