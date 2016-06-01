@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('Error!');
 		<div class="col-md-8">
         
             <?php foreach($latest_articles as $index): ?>
-        <h2 style="text-align: left;"><?php echo $index['title']; ?></h2>
+        <h2 style="text-align: left;"><a href="<?php echo base_url('article').'/'.$index['slug']; ?>"><?php echo $index['title']; ?></a></h2>
         <strong><?php echo "<i class='fa fa-user'></i>  Posted by: ".$this->pageslib->getAuthorFullName($index['posted_by']); ?></strong>
         <br>
         <strong><?php echo "<i class='fa fa-calendar'></i> Posted on: ".date('F j,  Y',strtotime($index['date_posted']));?></strong>

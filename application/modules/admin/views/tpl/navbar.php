@@ -34,15 +34,15 @@ defined('BASEPATH') or exit('Error!');
                        
                     
                         <li class="dropdown profile">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Emily Hart <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $this->session->userdata('site_user');?><span class="caret"></span></a>
                             <ul class="dropdown-menu animated fadeInDown">
                                 <li class="profile-img">
                                     <img src="<?php echo base_url('flatv2/img/profile/picjumbo.com_HNCK4153_resize.jpg');?>" class="profile-img">
                                 </li>
                                 <li>
                                     <div class="profile-info">
-                                        <h4 class="username">Emily Hart</h4>
-                                        <p>emily_hart@email.com</p>
+                                        <h4 class="username"><?php echo $this->adminlib->getAuthorFullName($this->session->userdata('site_user_id')); ?></h4>
+                                        <p><?php echo $this->session->userdata('site_user_role');?></p>
                                         <div class="btn-group margin-bottom-2x" role="group">
                                             <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
                                             <a href="<?php echo base_url('admin/logout');?>" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</a>

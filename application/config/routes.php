@@ -53,5 +53,6 @@ $route['default_controller'] = 'home';
 $route['category/(:num)']='home/category/$1';
 $route['category/(:num)/(:any)']='home/category/$1/$2';
 $route['article/(:any)']='home/article/$1';
-$route['404_override'] = '';
+$route['404_override'] = 'home/error404/page_not_found';
+$route['page_not_found'] = 'home/error404/page_not_found';
 $route['translate_uri_dashes'] = TRUE;
