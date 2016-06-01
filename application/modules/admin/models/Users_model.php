@@ -47,6 +47,7 @@ class Users_model extends CI_Model{
 		return $this->db->insert('users',$data);
 	}
 
+
 	public function _getUserRole($username){
 		$query = $this->db->where('users.usrs_username',$username);
 		$query = $this->db->get('users');
@@ -84,6 +85,11 @@ class Users_model extends CI_Model{
 	public function _lastLogged($username){
 		$this->db->where('usrs_username',$username);
 		$this->db->update('users',array('usrs_last_logged'=>date('Y-m-d')." ".date('h:i:sa')));
+	}
+
+	public function _updateUserDetails($data,$userId){
+		$this->db->where('users.usrs_ID',$userId);
+		return $this->db->update('users',$data);
 	}
 
 

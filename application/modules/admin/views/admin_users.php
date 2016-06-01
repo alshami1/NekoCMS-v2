@@ -25,8 +25,12 @@ defined('BASEPATH') or exit('Error!');
                                 </div>
                             </div>
                             <div class="card-body">
-                            <a href="<?php echo base_url('admin/add-user'); ?>" class="btn btn-primary btn-sm">Add User</a>
-
+                            <a  style="margin-bottom: 20px;" href="<?php echo base_url('admin/add-user'); ?>" class="btn btn-primary btn-sm"><i class="fa fa-user-plus"></i> Add User</a>
+                            <?php
+                            	if($this->session->flashdata('account_updated')!=''){
+                            		echo "<div class='alert alert-success'>".$this->session->flashdata('account_updated')."</div>";
+                            	}
+                            ?>
                             <div class="table-responsive">
 							<table class="table table-condensed table-hover table-stripped" id="tbl_users">
 						<thead>
@@ -37,6 +41,7 @@ defined('BASEPATH') or exit('Error!');
 							<th> Role </th>
 							<th> Date Added</th>
 							<th> Last Logged</th>
+							<th> Actions </th>
 							
 						</thead>
 						<tbody>
@@ -49,6 +54,9 @@ defined('BASEPATH') or exit('Error!');
 									<td><?php echo $index['usrs_role'];?></td>
 									<td><?php echo $index['usrs_date_added'];?></td>
 									<td><?php echo $index['usrs_last_logged'];?></td>
+									<td>
+									<a href="<?php echo base_url('admin/edit-user/').'/'.$index['usrs_ID'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+									</td>
 								
 								</tr>
 							<?php endforeach; ?>

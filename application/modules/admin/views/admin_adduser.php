@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('Error!');
 								<option value="admin">Admin</option>
 								<option  value="writer">Writer</option>
 								</select>
-								<button type="submit" class="btn btn-primary">Add User</button>
+								<button type="submit" class="btn btn-primary"><i class="fa fa-plus-square"></i> Add User</button>
 								</form>
                             </div>
                         </div>

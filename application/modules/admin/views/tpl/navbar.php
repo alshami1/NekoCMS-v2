@@ -44,7 +44,7 @@ defined('BASEPATH') or exit('Error!');
                                         <h4 class="username"><?php echo $this->adminlib->getAuthorFullName($this->session->userdata('site_user_id')); ?></h4>
                                         <p><?php echo $this->session->userdata('site_user_role');?></p>
                                         <div class="btn-group margin-bottom-2x" role="group">
-                                            <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
+                                           
                                             <a href="<?php echo base_url('admin/logout');?>" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</a>
                                         </div>
                                     </div>

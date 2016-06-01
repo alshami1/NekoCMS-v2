@@ -341,7 +341,177 @@ class Admin extends CI_Controller{
 		
 	}
 
+	public function edit_user($user_id){
+		$response =0;
 
+			$validators = array(
+				array(
+					'label'=>'Full Name',
+					'field'=>'txt_user_fullname',
+					'rules'=>'trim|required|min_length[2]|max_length[100]'
+					),
+				
+				array(
+					'label'=>'Username',
+					'field'=>'txt_username',
+					'rules'=>'trim|required|min_length[6]|max_length[20]',
+					),
+
+				array(
+					'label'=>'Email',
+					'field'=>'txt_user_mail',
+					'rules'=>'trim|required|valid_email',
+					)
+		);
+
+
+			if($this->session->userdata('site_user_role')!='admin'){
+				if($user_id != $this->session->userdata('site_user_id')){
+					echo 'You cannot edit other users account!';
+				}else{
+
+
+			if($this->session->userdata('site_user_role')=='admin'){
+				array_push($validators,array(
+						'label'=>'User Role',
+						'field'=>'usr_role',
+						'rules'=>'trim|required',
+						));
+			}
+
+			if(strlen($this->input->post('txt_user_password'))>0){
+				array_push($validators, 
+				array(
+						'label'=>'Password',
+						'field'=>'txt_user_password',
+						'rules'=>'trim|required|min_length[6]',
+						),
+
+					array(
+						'label'=>'Password Confirmation',
+						'field'=>'txt_user_password_cf',
+						'rules'=>'trim|required|matches[txt_user_password]',
+						)
+				);
+			}	
+				$this->form_validation->set_rules($validators);
+				$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
+
+				if($this->form_validation->run()==FALSE){
+
+					$data['css_files'] = $this->twitterbootstrap->load_css_files();
+					$data['js_files'] = $this->twitterbootstrap->load_js_files();
+					$data['user_info'] = $this->users_model->_getUsersData('users',array(array('field'=>'usrs_ID','parameter'=>$user_id)));
+					$data['page_title'] = 'Edit User';
+					$this->load->view('tpl/head',$data);
+					$this->load->view('tpl/navbar');
+					$this->load->view('admin_edituser',$data);
+					$this->load->view('tpl/footer',$data);
+				}else{
+
+				if(strlen($this->input->post('txt_user_password'))>0){
+
+					$response =$this->users_model->_updateUserDetails(
+						array(
+							'usrs_username'=>$this->input->post('txt_username',TRUE),
+							'usrs_full_name'=>$this->input->post('txt_user_fullname',TRUE),
+							'usrs_email'=>$this->input->post('txt_user_mail',TRUE),
+							'usrs_pw'=>$this->adminlib->hashPassword($this->input->post('txt_user_password',TRUE)),
+							'usrs_role'=>$this->session->userdata('site_user_role')
+							),
+						$user_id
+						);
+					}else{
+
+					$response =$this->users_model->_updateUserDetails(
+						array(
+							'usrs_username'=>$this->input->post('txt_username',TRUE),
+							'usrs_full_name'=>$this->input->post('txt_user_fullname',TRUE),
+							'usrs_email'=>$this->input->post('txt_user_mail',TRUE),
+							'usrs_role'=>$this->session->userdata('site_user_role')
+							),
+						$user_id
+						);
+					}
+				}
+
+			}
+		}else{
+
+
+			if($this->session->userdata('site_user_role')=='admin'){
+				array_push($validators,array(
+						'label'=>'User Role',
+						'field'=>'usr_role',
+						'rules'=>'trim|required',
+						));
+			}
+
+			if(strlen($this->input->post('txt_user_password'))>0){
+				array_push($validators, 
+				array(
+						'label'=>'Password',
+						'field'=>'txt_user_password',
+						'rules'=>'trim|required|min_length[6]',
+						),
+
+					array(
+						'label'=>'Password Confirmation',
+						'field'=>'txt_user_password_cf',
+						'rules'=>'trim|required|matches[txt_user_password]',
+						)
+				);
+			}	
+				$this->form_validation->set_rules($validators);
+				$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
+
+				if($this->form_validation->run()==FALSE){
+
+					$data['css_files'] = $this->twitterbootstrap->load_css_files();
+					$data['js_files'] = $this->twitterbootstrap->load_js_files();
+					$data['user_info'] = $this->users_model->_getUsersData('users',array(array('field'=>'usrs_ID','parameter'=>$user_id)));
+					$data['page_title'] = 'Edit User';
+					$this->load->view('tpl/head',$data);
+					$this->load->view('tpl/navbar');
+					$this->load->view('admin_edituser',$data);
+					$this->load->view('tpl/footer',$data);
+				}else{
+					
+					if(strlen($this->input->post('txt_user_password'))>0){
+
+					$response =$this->users_model->_updateUserDetails(
+						array(
+							'usrs_username'=>$this->input->post('txt_username',TRUE),
+							'usrs_full_name'=>$this->input->post('txt_user_fullname',TRUE),
+							'usrs_email'=>$this->input->post('txt_user_mail',TRUE),
+							'usrs_pw'=>$this->adminlib->hashPassword($this->input->post('txt_user_password',TRUE)),
+							'usrs_role'=>$this->input->post('usr_role',TRUE)
+							),
+						$user_id
+						);
+					}else{
+
+					$response = $this->users_model->_updateUserDetails(
+						array(
+							'usrs_username'=>$this->input->post('txt_username',TRUE),
+							'usrs_full_name'=>$this->input->post('txt_user_fullname',TRUE),
+							'usrs_email'=>$this->input->post('txt_user_mail',TRUE),
+							'usrs_role'=>$this->input->post('usr_role',TRUE)
+							),
+						$user_id
+						);
+					}
+
+
+				}
+		}
+
+		if($response==1){
+			$this->session->set_flashdata('account_updated','Account successfully updated.');
+			redirect(base_url('admin/user-list'));
+		}
+
+	}
 
 
 	public function forbidden_page(){
