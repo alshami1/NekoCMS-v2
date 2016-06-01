@@ -26,6 +26,19 @@ class Page_model extends CI_Model{
 		return $this->db->insert('categories',$data);
 	}
 
+	public function delete_parent_page($page_id){
+
+		$categories_update = array('parent_page'=>0);
+		$updatesql = $this->db->where('categories.parent_page',$page_id);
+		$updatesql = $this->db->update('categories',$categories_update);
+
+		if($updatesql==1){
+			$deletepagesql = $this->db->where('pages.pageID',$page_id);
+			return $this->db->delete('pages');
+		}
+
+	}
+
 		public function _getPagesData($table,$params){
 
 		$query = $this->db->select('*');

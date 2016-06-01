@@ -39,6 +39,7 @@ defined('BASEPATH') or exit('Error!');
                                   <th>Post Title</th>
                                   <th> Category </th>
                                   <th>URL</th>
+                                  <th> Author </th>
                                   <th>Options</th>
                               </tr>
                             </thead>
@@ -52,6 +53,7 @@ defined('BASEPATH') or exit('Error!');
                                   <td><label class="label label-success"><?php echo $userposts['title']; ?></label></td>
                                   <td><?php echo $userposts['category_name']; ?></td>
                                   <td><a href="<?php echo base_url('article').'/'.$userposts['slug']; ?>"><i class='fa fa-search'></i> View Post</a></td>
+                                  <td><?php echo $this->adminlib->getAuthorFullName($userposts['posted_by']); ?></td>
                                   <td>
                                   <a href="<?php echo base_url('admin/edit-blog').'/'.$userposts['slug'];?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                   <a  class="btn btn-sm btn-primary delete_post" data-postid="<?php echo $userposts['postID'];?>"><i class="fa fa-trash"></i> Delete</a>

@@ -23,4 +23,10 @@ class Category_model extends CI_Model{
 	public function get_all_categories(){
 		return $this->db->get('categories')->result_array();
 	}
+
+	public function update_category_parent($category_id,$newparent){
+		$query = $this->db->where('categories.categ_ID',$category_id);
+		
+		return $this->db->update('categories',array('parent_page'=>$newparent));
+	}
 }

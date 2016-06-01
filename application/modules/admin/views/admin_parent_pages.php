@@ -46,7 +46,7 @@ defined('BASEPATH') or exit('Error!');
                                                
                                                 <td>
                                                     <a href="<?php echo base_url('admin/edit-page').'/'.$index['page_slug'];?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a href="" class="btn btn-sm btn-primary"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a  class="btn btn-sm btn-primary deleteparentpage" data-pageid="<?php echo $index['pageID'];?>"><i class="fa fa-trash"></i> Delete</a>
 												</td>
                                                 </tr>
                                                 <?php endforeach;?>

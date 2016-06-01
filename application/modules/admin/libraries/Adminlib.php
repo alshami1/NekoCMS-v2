@@ -37,6 +37,14 @@ class Adminlib {
 
 	 }
 
+	public function getAuthorFullName($userId){
+		
+		$data = $this->CI->users_model->_getUsersData('users',array(array('field'=>'usrs_ID','parameter'=>$userId)));
+		foreach($data as $index){
+			return $index['usrs_full_name'];
+		}
+	}
+
 	public function hashPassword($password){
 		return password_hash($password,PASSWORD_BCRYPT,array('cost'=>15));
 	}

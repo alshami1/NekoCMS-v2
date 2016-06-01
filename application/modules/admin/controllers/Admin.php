@@ -12,7 +12,8 @@ defined('BASEPATH') or exit('Error!');
 */
 class Admin extends CI_Controller{
 	
-private $file ;
+
+    private $file ;
 
 	public function __construct(){
 		# code...
@@ -20,6 +21,8 @@ private $file ;
 		$this->load->helper(array('url','adminvalidation'));
 		$this->load->library(array('adminlib','twitterbootstrap','form_validation','session','pagination'));
 		$this->load->model(array('users_model','page_model','category_model','blog_model'));
+
+
 
 	}
 
@@ -423,5 +426,19 @@ private $file ;
 	}
 
 
+public function t(){
+		$postsIDS = array();
+				
+				$writerposts = $this->blog_model->user_blogs($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'),NULL,NULL);
+
+				foreach($writerposts as $index){
+					array_push($postsIDS,$index['postID']);
+				}
+				if(in_array(17,$postsIDS)){
+					echo "ok"; //$this->blog_model->delete_blog($this->input->post('post_id',TRUE));		
+				}else{
+					echo "not";
+				}
+}
 
 }

@@ -49,6 +49,7 @@ defined('BASEPATH') or exit('Error!');
 									<td>
 										<a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
 										<a href="" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</a>
+										<a class="btn btn-primary btn-sm movecategory" data-categid="<?php echo $index['categ_ID'];?>"><i class="fa fa-mail-forward"></i> Move</a>
 									</td>
 								
 								

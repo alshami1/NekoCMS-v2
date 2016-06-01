@@ -71,7 +71,28 @@ defined('BASEPATH') or exit('Error!');
               if($current_uri_segment=='parent-pages'){
             ?>
               <script type="text/javascript">
+                
                 $('#tbl_pages').DataTable();
+
+                $(document).on('click','.deleteparentpage',function(){
+                  var page_id  = this.dataset.pageid;
+
+                    bootbox.confirm('Are you sure you want to delete this parent page?',function(x){
+                      
+                      if(x==true){
+                        $.ajax({
+                          url: "<?php echo base_url('admin/admin_ajax/remove_parent_page'); ?>",
+                          method: "POST",
+                          data: "parent_page_id="+page_id,
+                          succes:function(response){
+                            console.log(response);
+                          }
+                        });
+                      }
+
+                    });
+                });
+
               </script>
 
 
@@ -84,6 +105,30 @@ defined('BASEPATH') or exit('Error!');
             <?php } if($current_uri_segment=='categories'){?>
                   <script type="text/javascript">
                     $('#tbl_categories').DataTable();
+
+                    $(document).on('click','.movecategory',function(){
+                       var category_id = this.dataset.categid;
+
+                       $.ajax({
+                          url: "<?php echo base_url('admin/admin_ajax/show_movecategory_box'); ?>",
+                          data: "categ_id="+category_id,
+                          type: "POST",
+                          success:function(response){
+                            popUp = bootbox.dialog({
+                              message: ' ',
+                              title: 'Move category to new parent page',
+                              size: 'small',
+                              onEscape:function(){
+
+                              }
+
+                            });
+                             popUp.contents().find('.bootbox-body').html(response);
+                          }
+                       });
+
+                    });
+
                   </script>
             <?php }?>
 
@@ -97,7 +142,7 @@ defined('BASEPATH') or exit('Error!');
                   $(document).on('click','.move_post',function(){
                       
                       $.ajax({
-                        url: "<?php echo base_url('admin/admin_ajax/show_move_category_box');?>",
+                        url: "<?php echo base_url('admin/admin_ajax/show_movepost_category_box');?>",
                         type: "POST",
                         data: "slug="+this.dataset.postslug,
                         success:function(response){
@@ -130,6 +175,9 @@ defined('BASEPATH') or exit('Error!');
 
                               if(response==1){
                                 window.location = "<?php echo base_url('admin/blog-post');?>";
+                              }
+                              if(response=='not-authorized'){
+                                bootbox.alert('Unable to delete this post.');
                               }
                           }
                       });
