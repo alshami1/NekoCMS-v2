@@ -52,7 +52,7 @@ class Home extends CI_Controller {
            $this->load->view('tpl/'.$this->theme.'head',$data);
            $this->load->view('tpl/'.$this->theme.'navbar',$data);
            $this->load->view('article',$data);
-           $this->load->view('tpl/footer',$data);
+           $this->load->view('tpl/'.$this->theme.'footer',$data);
 
    }
 
@@ -88,7 +88,7 @@ class Home extends CI_Controller {
            $this->load->view('tpl/'.$this->theme.'head',$data);
            $this->load->view('tpl/'.$this->theme.'navbar',$data);
            $this->load->view('category-post',$data);
-           $this->load->view('tpl/footer',$data);
+           $this->load->view('tpl/'.$this->theme.'footer',$data);
         }else{
             show_404();
             exit();
