@@ -7,3 +7,5 @@ CONTRIBUTOR(S)
 https://github.com/whoami15
 
 Project still on development.
+
+Thanks
