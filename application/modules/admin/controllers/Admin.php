@@ -127,32 +127,6 @@ class Admin extends CI_Controller{
 
 	}
 	
-	public function edit_page($page){
-		$this->form_validation->set_rules('txt_pagetitle','Page Name','required|min_length[4]|trim|max_length[45]');
-		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
-
-		if($this->form_validation->run()===FALSE){
-			$data['css_files'] = $this->twitterbootstrap->load_css_files();
-			$data['js_files'] = $this->twitterbootstrap->load_js_files();
-            $data['page_title'] = 'Edit Page';
-			$data['page_to_edit']= $this->page_model->get_page($page);
-            $this->load->view('tpl/head',$data);
-			$this->load->view('tpl/navbar');
-            $this->load->view('admin_edit_page',$data);
-            $this->load->view('tpl/footer',$data);
-		}
-		else{
-
-			$response = $this->page_model->update_page(array('page_name'=>$this->input->post('txt_pagetitle',TRUE),'page_slug'=>url_title($this->input->post('txt_pagetitle'), 'dash', TRUE)),$page);
-
-			if($response==1){
-				redirect(base_url('admin/parent-pages'));
-			}
-
-		}
-		
-	}
-
 
 
 
@@ -239,9 +213,6 @@ class Admin extends CI_Controller{
 
 	}
 
-	public function delete_blog(){
-
-	}
 
 
 	public function edit_blog($slug){
@@ -344,6 +315,34 @@ class Admin extends CI_Controller{
 		 
 	}
 
+		public function edit_page($page){
+		$this->form_validation->set_rules('txt_pagetitle','Page Name','required|min_length[4]|trim|max_length[45]');
+		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
+
+		if($this->form_validation->run()===FALSE){
+			$data['css_files'] = $this->twitterbootstrap->load_css_files();
+			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+            $data['page_title'] = 'Edit Page';
+			$data['page_to_edit']= $this->page_model->get_page($page);
+            $this->load->view('tpl/head',$data);
+			$this->load->view('tpl/navbar');
+            $this->load->view('admin_edit_page',$data);
+            $this->load->view('tpl/footer',$data);
+		}
+		else{
+
+			$response = $this->page_model->update_page(array('page_name'=>$this->input->post('txt_pagetitle',TRUE),'page_slug'=>url_title($this->input->post('txt_pagetitle'), 'dash', TRUE)),$page);
+
+			if($response==1){
+				redirect(base_url('admin/parent-pages'));
+			}
+
+		}
+		
+	}
+
+
+
 
 	public function forbidden_page(){
 
@@ -351,6 +350,18 @@ class Admin extends CI_Controller{
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
 		$data['page_title'] = 'Error 403';
 		$this->load->view('admin_forbidden-page',$data);
+	}
+
+
+	public function frontend_themes(){
+
+		$data['css_files'] = $this->twitterbootstrap->load_css_files();
+		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['page_title'] = 'Front End Themes';
+		$this->load->view('tpl/head',$data);
+		$this->load->view('tpl/navbar');
+		$this->load->view('admin_themes',$data);
+		$this->load->view('tpl/footer',$data);
 	}
 
 

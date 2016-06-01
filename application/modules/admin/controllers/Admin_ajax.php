@@ -21,6 +21,19 @@ class Admin_ajax extends CI_Controller{
 		$this->load->library(array('adminlib','session'));
 	}
 
+	public function activate_theme(){
+		
+	if($this->input->is_ajax_request()){
+
+		$this->load->database();
+		$query = $this->db->truncate('theme_settings'); 
+
+		echo  $this->db->insert('theme_settings',array('theme_path'=>$this->input->post('theme',TRUE),'is_activated'=>'Yes'
+			));
+	}
+
+	}
+
 	public function add_page(){
 		if($this->input->is_ajax_request()==TRUE){
 
@@ -53,6 +66,20 @@ class Admin_ajax extends CI_Controller{
 		}else{
 			redirect(base_url('admin/forbidden-page'));
 		}
+	}
+
+
+	public function deactivate_theme(){
+		
+	if($this->input->is_ajax_request()){
+
+		$this->load->database();
+		$query = $this->db->truncate('theme_settings'); 
+
+		echo  $this->db->insert('theme_settings',array('theme_path'=>$this->input->post('theme',TRUE),'is_activated'=>'No'
+			));
+	}
+
 	}
 
 	public function deletepost(){

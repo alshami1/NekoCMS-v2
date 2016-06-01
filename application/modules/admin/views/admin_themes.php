@@ -29,14 +29,14 @@ defined('BASEPATH') or exit('Error!');
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">Icon Lists</div>
+                                    <div class="title">Front End Themes</div>
                                 </div>
                                 <div class="pull-right card-action">
                                    
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="sub-title">Installed Themes</div>
+                                <div class="sub-title"></div>
                                	<div class="table-responsive">
                                	<table id="tbl_themes" cellpadding="" class="table table-condensed table-hover table-stripped">
                                		<thead>
@@ -55,7 +55,8 @@ defined('BASEPATH') or exit('Error!');
                                				<td><?php echo $i++; ?></td>
                                				<td><?php echo $packages[5]; ?>
                                				<td>
-                               					<a class="btn btn-primary btn-sm"><i class="fa fa-check-square"></i> Activate</a>
+                               					<a class="btn btn-primary btn-sm activate_theme" data-themepackage="<?php echo "custom-themes/".$packages[5].'/'; ?>"><i class="fa fa-check-square"></i> Activate</a>
+                                        <a class="btn btn-primary btn-sm deactivate_theme" data-themepackage="<?php echo "custom-themes/".$packages[5].'/'; ?>"><i class="fa fa-ban"></i> Deactivate</a>
                                					<a class="btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete </a>
                                				</td>
                                				</tr>

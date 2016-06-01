@@ -190,6 +190,50 @@ defined('BASEPATH') or exit('Error!');
                   });
 
 </script>
+            <?php } if($current_uri_segment=='frontend-themes'){?>
+                <script type="text/javascript">
+                  $('#tbl_themes').DataTable();
+
+                  $(document).on('click','.activate_theme',function(){
+                      var theme_name = this.dataset.themepackage;
+
+                      bootbox.confirm('Activate this theme?',function(x){
+                        if(x==true){
+                          $.ajax({
+                              url: "<?php echo base_url('admin/admin_ajax/activate_theme'); ?>",
+                              data: "theme="+theme_name,
+                              type: "POST",
+                              success:function(response){
+                                if(response==1){
+                                  window.location = "<?php echo base_url('admin/frontend-themes'); ?>";
+                                }
+                              }
+                          });
+                        }
+                      });
+                  });
+
+                  $(document).on('click','.deactivate_theme',function(){
+
+                        var theme_name = this.dataset.themepackage;
+                        
+                      bootbox.confirm('Deactivate this theme?',function(x){
+                          if(x==true){
+                          $.ajax({
+                              url: "<?php echo base_url('admin/admin_ajax/deactivate_theme'); ?>",
+                              data: "theme="+theme_name,
+                              type: "POST",
+                              success:function(response){
+                                if(response==1){
+                                  window.location = "<?php echo base_url('admin/frontend-themes'); ?>";
+                                }
+                              }
+                          });
+                          }
+                      });
+                  });
+                </script>
+
             <?php }?>
 
 	</body>
