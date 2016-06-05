@@ -123,8 +123,5 @@ class Home extends CI_Controller {
 		$this->load->view('/template/'.$this->config->item('theme').'/footer');	
 	}
 
-  public function t(){
-
-  }
 
 } 
