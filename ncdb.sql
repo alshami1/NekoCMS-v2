@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2016 at 09:45 PM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: Jun 04, 2016 at 03:37 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `ncdb`
+-- Database: `ncdbb`
 --
 
 -- --------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`categ_ID`, `category_slug`, `category_name`, `parent_page`) VALUES
-(1, 'android-programming', 'Android Programming', 9),
+(1, 'android-programming-is-cool', 'Android Programming is Cool', 9),
 (2, 'java', 'Java', 9),
 (3, 'basic-photography', 'Basic Photography', 2),
 (4, 'when-im-not-on-work', 'When I''m Not On Work', 6),
@@ -120,6 +120,30 @@ INSERT INTO `posts` (`postID`, `title`, `slug`, `content`, `date_posted`, `poste
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `site_info`
+--
+
+CREATE TABLE IF NOT EXISTS `site_info` (
+  `configID` int(11) NOT NULL AUTO_INCREMENT,
+  `configDesc` varchar(45) NOT NULL,
+  `configValue` text NOT NULL,
+  PRIMARY KEY (`configID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `site_info`
+--
+
+INSERT INTO `site_info` (`configID`, `configDesc`, `configValue`) VALUES
+(1, 'site_title', 'Neko CMS v2'),
+(2, 'site_meta_desc', 'Find tutorial here about Anything you want Programming Language, Android, Photography and many more. This is a Simple Blogging built using Codeigniter. A very simple content management system using codeigniter framework,bootstrap , jquery and mysql'),
+(3, 'site_owner', 'Novi & Whoami'),
+(4, 'site_meta_keywords', 'NekoCMS,NekoCms,CMS,Blog,Programming,Android,NekoCMS,simple cms,free cms neko,codeigniter neko,codeigniter simple cms,neko kel novi,codeigniter cms,novhex codeigniter'),
+(5, 'site_footer', 'Neko CMS v2 2016 sample lang to');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `theme_settings`
 --
 
@@ -135,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `theme_settings` (
 --
 
 INSERT INTO `theme_settings` (`ts_ID`, `theme_path`, `is_activated`) VALUES
-(1, 'custom-themes/clean_blog/', 'Yes');
+(1, 'custom-themes/bootstrap3_default/', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -150,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `usrs_full_name` varchar(100) NOT NULL,
   `usrs_pw` varchar(255) NOT NULL,
   `usrs_email` varchar(255) NOT NULL,
+  `profile_photo` text NOT NULL,
   `usrs_date_added` date NOT NULL,
   `usrs_last_logged` datetime NOT NULL,
   `usrs_role` enum('admin','writer') NOT NULL,
@@ -160,11 +185,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`usrs_ID`, `usrs_UID`, `usrs_username`, `usrs_full_name`, `usrs_pw`, `usrs_email`, `usrs_date_added`, `usrs_last_logged`, `usrs_role`) VALUES
-(1, '', 'root_eleven', 'Kel', '$2y$15$gAwmRb2k7yF2MmgTaxXFSe/rLOle1yc2O5Mw2RH6.MIvyfsVZlMcC', 'novhz0514@gmail.com', '2016-04-30', '2016-06-01 09:18:26', 'admin'),
-(2, '', 'noviadmin', 'Novi', '$2y$15$gZO/bm164mf6ElP/lWLIv.3j.9dxW.WJpV4Da9mwQb4PMOscxy0OK', 'novi@mail.com', '2016-05-01', '2016-06-01 08:47:08', 'admin'),
-(3, '', 'mr_writer', 'Mister Write', '$2y$15$B7pKSUhlriv/Xc//V4mjq.Hf/oQXrlsPxAbleMbfpg.xOogTIi77a', 'mr_writer@mail.com', '2016-05-01', '2016-06-01 07:40:37', 'writer'),
-(4, '', 'michael_novi', 'Michael Novi', '$2y$15$ym2nObZZNQSIrxU5849.3.iKHSHG3L9hpcfPavmbgcWfhVOYYlq7K', 'novhex94@gmail.com', '2016-06-01', '2016-06-01 09:30:31', 'admin');
+INSERT INTO `users` (`usrs_ID`, `usrs_UID`, `usrs_username`, `usrs_full_name`, `usrs_pw`, `usrs_email`, `profile_photo`, `usrs_date_added`, `usrs_last_logged`, `usrs_role`) VALUES
+(1, '', 'root_eleven', 'Kel', '$2y$15$gAwmRb2k7yF2MmgTaxXFSe/rLOle1yc2O5Mw2RH6.MIvyfsVZlMcC', 'novhz0514@gmail.com', '', '2016-04-30', '2016-06-01 09:18:26', 'admin'),
+(2, '', 'noviadmin', 'Novi', '$2y$15$gZO/bm164mf6ElP/lWLIv.3j.9dxW.WJpV4Da9mwQb4PMOscxy0OK', 'novi@mail.com', 'http://localhost/nekov2/images/ceab5b19ebf8c105996245a208d566ed22015_10151274652743197_218860783_n.jpg', '2016-05-01', '2016-06-03 02:30:43', 'admin'),
+(3, '', 'mr_writer', 'Mister Write', '$2y$15$B7pKSUhlriv/Xc//V4mjq.Hf/oQXrlsPxAbleMbfpg.xOogTIi77a', 'mr_writer@mail.com', '', '2016-05-01', '2016-06-01 07:40:37', 'writer'),
+(4, '', 'michael_novi', 'Michael Novi', '$2y$15$ym2nObZZNQSIrxU5849.3.iKHSHG3L9hpcfPavmbgcWfhVOYYlq7K', 'novhex94@gmail.com', '', '2016-06-01', '2016-06-01 09:30:31', 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

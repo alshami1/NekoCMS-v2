@@ -30,25 +30,33 @@ class Home extends CI_Controller {
 
     public function index() {
 
-         $data['css_files']=$this->twitterbootstrap->load_css_files();
-         $data['js_files']=$this->twitterbootstrap->load_js_files();
-          $data['pages'] =$this->home_model->_getHomeData('pages',NULL);
-          $data['page_title']='Home';
-          $data['latest_articles']=$this->home_model->_getLatest();
-          $this->load->view('tpl/'.$this->theme.'head',$data);
-          $this->load->view('tpl/'.$this->theme.'navbar',$data);
-          $this->load->view('home',$data);
-          $this->load->view('tpl/'.$this->theme.'footer',$data);
+        $data['css_files']=$this->twitterbootstrap->load_css_files();
+        $data['js_files']=$this->twitterbootstrap->load_js_files();
+        $data['pages'] = $this->home_model->_getHomeData('pages',NULL);
+        $data['page_title']='Home';
+	     	$data['site_desc'] = $this->home_model->getsite_meta_description();
+		    $data['site_keywords'] =$this->home_model->getsite_meta_keywords();
+		    $data['footer'] =$this->home_model->getsite_footer();
+        $data['latest_articles']=$this->home_model->_getLatest();
+        $data['category_name']=NULL;
+        $this->load->view('tpl/'.$this->theme.'head',$data);
+        $this->load->view('tpl/'.$this->theme.'navbar',$data);
+        $this->load->view('home',$data);
+        $this->load->view('tpl/'.$this->theme.'footer',$data);
     }
 
    public function article($slug){
-
-          
+           
+           $data['site_desc'] = $this->home_model->getsite_meta_description();
+           $data['site_keywords'] =$this->home_model->getsite_meta_keywords();
+           $data['footer'] =$this->home_model->getsite_footer();
+           $data['url_slug'] = $slug;
+           $data['category_name']=NULL;
            $data['css_files']=$this->twitterbootstrap->load_css_files();
            $data['js_files']=$this->twitterbootstrap->load_js_files();
            $data['pages'] =$this->home_model->_getHomeData('pages',NULL);
            $data['categ_post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>str_replace("_","-",$slug ))));
-           $data['page_title']='Category Posts';
+           $data['page_title']='Article ';
            $this->load->view('tpl/'.$this->theme.'head',$data);
            $this->load->view('tpl/'.$this->theme.'navbar',$data);
            $this->load->view('article',$data);
@@ -80,6 +88,10 @@ class Home extends CI_Controller {
            $config['num_tag_close'] = '</li>';
            $config['uri_segment'] = $uri_segment;
            $this->pagination->initialize($config);
+           $data['category_name'] = $this->home_model->get_category_name($parent_category);
+           $data['site_desc'] = $this->home_model->getsite_meta_description();
+           $data['site_keywords'] =$this->home_model->getsite_meta_keywords();
+           $data['footer'] =$this->home_model->getsite_footer();
            $data['categ_posts']=$this->home_model->allpost_from_category($parent_category,$offset,5);
            $data['css_files']=$this->twitterbootstrap->load_css_files();
            $data['js_files']=$this->twitterbootstrap->load_js_files();
@@ -95,5 +107,24 @@ class Home extends CI_Controller {
         }
 
     }
+	
+	//SEARCH
+	public function search() {
+		$data['title'] = 'Search';
+		$navquery = $this->db->order_by("position","asc");
+		$navquery = $this->db->get('pages');
+		$data["nav"] = $navquery->result_array();
+		$sidebarquery = $this->db->order_by("position","asc");
+		$sidebarquery = $this->db->get('sidebar');
+		$data["sidebar"] = $sidebarquery->result_array();
+		$this->load->view('/template/'.$this->config->item('theme').'/header', $data);
+		$this->load->view('/template/'.$this->config->item('theme').'/sidebar', $data);
+		$this->load->view('search', $data);
+		$this->load->view('/template/'.$this->config->item('theme').'/footer');	
+	}
+
+  public function t(){
+
+  }
 
 } 

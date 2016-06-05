@@ -29,4 +29,14 @@ class Category_model extends CI_Model{
 		
 		return $this->db->update('categories',array('parent_page'=>$newparent));
 	}
+	
+	public function get_category($category){
+        $query =$this->db->where('categories.category_slug',str_replace("_", "-", $category));
+        return $this->db->get('categories')->result_array();
+	}
+	
+	public function update_category($data,$category){
+		$this->db->where('categories.category_slug',str_replace("_", "-", $category));
+		return $this->db->update('categories',$data);
+    }
 }

@@ -14,16 +14,17 @@ class Admin extends CI_Controller{
 	
 
     private $file ;
-
+	private $dir_path="";
+	private $project_url;
+	
 	public function __construct(){
 		# code...
 		parent::__construct();
-		$this->load->helper(array('url','adminvalidation'));
+		$this->dir_path='./images/';
+		$this->load->library('session');
+		$this->load->helper(array('url','adminvalidation','form'));
 		$this->load->library(array('adminlib','twitterbootstrap','form_validation','session','pagination'));
 		$this->load->model(array('users_model','page_model','category_model','blog_model'));
-
-
-
 	}
 
 	public function index(){
@@ -198,6 +199,34 @@ class Admin extends CI_Controller{
 		$this->load->view('tpl/footer',$data);
 
 	}
+	
+	//EDIT CATEGORY 
+	public function edit_category($category){
+		$this->form_validation->set_rules('txt_category','Page Category','required|min_length[4]|trim|max_length[45]');
+		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
+
+		if($this->form_validation->run()===FALSE){
+			$data['css_files'] = $this->twitterbootstrap->load_css_files();
+			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+            $data['page_title'] = 'Edit Page Category';
+			$data['category_to_edit']= $this->category_model->get_category($category);
+            $this->load->view('tpl/head',$data);
+			$this->load->view('tpl/navbar');
+            $this->load->view('admin_edit_category',$data);
+            $this->load->view('tpl/footer',$data);
+		}
+		else{
+
+			$response = $this->category_model->update_category(array('category_name'=>$this->input->post('txt_category',TRUE),'category_slug'=>url_title($this->input->post('txt_category'), 'dash', TRUE)),$category);
+
+			if($response==1){
+				redirect(base_url('admin/categories'));
+			}
+
+		}
+		
+	}
+	//END
 
 
 
@@ -605,5 +634,38 @@ class Admin extends CI_Controller{
 
 
 	}
+	
+	public function site_settings(){
+		$data['css_files'] = $this->twitterbootstrap->load_css_files();
+		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['page_title']='Dashboard - Site Settings';
+		
+		$this->form_validation->set_rules('txt_site_owner','Site Owner','required|trim|max_length[45]');
+		$this->form_validation->set_rules('txt_site_title','Site Name','required|trim|max_length[45]');
+		$this->form_validation->set_rules('site_meta','Site Meta','required|trim|max_length[250]');
+		$this->form_validation->set_rules('site_metakw','Site Meta Keywords','required|trim');
+		$this->form_validation->set_rules('site_footer','Footer','required|trim|max_length[80]');
+		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
+		
+		if($this->form_validation->run()===FALSE){
+
+			$data['site_meta']=$this->users_model->getsite_meta_description();
+			$data['site_owner']=$this->users_model->getsite_owner();
+			$data['site_title']=$this->users_model-> getsite_title();
+			$data['site_metakw'] = $this->users_model->getsite_meta_keywords();
+			$data['footer'] = $this->users_model->getsite_footer();
+			$this->load->view('tpl/head',$data);
+			$this->load->view('tpl/navbar');
+			$this->load->view('admin_settings', $data);
+			$this->load->view('tpl/footer',$data);
+		}else{
+			$this->users_model->updatesiteInfo();
+			$this->session->set_flashdata('changes1','Changes has been saved.');
+			redirect(base_url().'admin/site-settings');
+		}
+
+	}
+	
+
 
 }

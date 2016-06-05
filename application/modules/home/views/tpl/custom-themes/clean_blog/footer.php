@@ -43,7 +43,9 @@ defined('BASEPATH') or exit('Error!');
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Neko CMS <?php date('Y'); ?></p>
+					<?php foreach($footer as $fr): ?>
+                    <p class="copyright text-muted">&copy;<?php echo $fr['configValue'];?> 2015 - <?php echo date("Y"); ?></p>
+					<?php endforeach; ?>
                 </div>
             </div>
         </div>

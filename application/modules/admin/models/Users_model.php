@@ -12,9 +12,13 @@ defined('BASEPATH') or exit('Error!');
 
 class Users_model extends CI_Model{
 
+	private $project_url='';
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->database();
+		$this->load->helper('url');
+        $this->load->library('session');
 	}
 
 	public function _authenticate($username,$password){
@@ -90,6 +94,105 @@ class Users_model extends CI_Model{
 	public function _updateUserDetails($data,$userId){
 		$this->db->where('users.usrs_ID',$userId);
 		return $this->db->update('users',$data);
+	}
+	
+	public function getsite_meta_description(){
+		$this->db->where('site_info.configID',2);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+
+    public function getsite_meta_keywords(){
+		$this->db->where('site_info.configID',4);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+	
+	public function getsite_footer(){
+		$this->db->where('site_info.configID',5);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+	
+	public function getsite_owner(){
+		$this->db->where('site_info.configID',3);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+
+	public function getsite_title(){
+		$this->db->where('site_info.configID',1);
+		$query=$this->db->get('site_info');
+		return $query->result_array();		
+	}
+	
+	public function changeNick($new_val){
+		$data=array(
+			'usrs_full_name'=>$new_val
+		);
+		$this->db->where('users.id',1);
+		return $this->db->update('users',$data);
+	}
+
+	
+	public function updatesiteInfo(){
+		$this->updateBlogTitle($this->input->post('txt_site_title',TRUE));
+		$this->updateBlogMeta($this->input->post('site_meta',TRUE));
+		$this->updateBlogMetaKeywords($this->input->post('site_metakw',TRUE));
+		$this->updateBlogOwner($this->input->post('txt_site_owner',TRUE));
+		$this->updateSiteFooter($this->input->post('site_footer',TRUE));
+	}
+	
+	public function updateUserPic($path){
+	$this->resetDisplayPhotoSession($path);
+		$data=array(
+			'profile_photo'=>$path
+		);
+	$this->db->where('users.id',1);
+	return $this->db->update('users',$data);
+	}
+	
+
+	
+	
+	public function updateBlogTitle($new_val){
+        $data=array(
+				'configValue'=>$new_val
+			);
+        $this->db->where('site_info.configID',1);
+        return $this->db->update('site_info',$data);
+	}
+
+	public function updateBlogMeta($new_val){
+        $data=array(
+				'configValue'=>$new_val
+			);
+        $this->db->where('site_info.configID',2);
+        return $this->db->update('site_info',$data);
+	}
+
+	public function updateBlogMetaKeywords($mkw){
+			$data=array(
+				'configValue'=>$mkw
+			);
+        $this->db->where('site_info.configID',4);
+        return $this->db->update('site_info',$data);
+	}
+	
+	public function updateSiteFooter($mkw){
+			$data=array(
+				'configValue'=>$mkw
+			);
+        $this->db->where('site_info.configID',5);
+        return $this->db->update('site_info',$data);
+	}
+
+	public function updateBlogOwner($new_val){
+			$data=array(
+				'configValue'=>$new_val
+			);
+        $this->db->where('site_info.configID',3);
+        return $this->db->update('site_info',$data);
 	}
 
 

@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 	
 	<?php foreach($categ_post as $index): ?>
-		<h1 style="text-align: center; margin-top: 50px; font-size: 20px;" ><?php echo $index['title']; ?></h1>
+		<h1 id="article_title" style="text-align: center; margin-top: 50px; font-size: 20px;" ><?php echo $index['title']; ?></h1>
 		<hr>
 
 		<strong><?php echo "<i class='fa fa-user'></i>  Posted by: ".$this->pageslib->getAuthorFullName($index['posted_by']); ?></strong>

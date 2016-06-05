@@ -159,6 +159,11 @@ defined('BASEPATH') or exit('Error!');
                                     </div>
                                 </div>
                             </li>
+							<li>
+                                <a href="<?php echo base_url('admin/site-settings/');?>">
+                                    <span class="icon fa fa-cogs"></span><span class="title">Site Settings</span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="license.html">
                                     <span class="icon fa fa-thumbs-o-up"></span><span class="title">License</span>

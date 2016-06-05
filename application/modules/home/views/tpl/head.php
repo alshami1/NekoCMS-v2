@@ -13,12 +13,28 @@ defined('BASEPATH') or exit('Error!');
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="NekoCMS,simple cms,free cms neko,codeigniter neko,codeigniter simple cms,neko kel novi,codeigniter cms,novhex codeigniter">
-<meta name="author" content="Novhex">
-<meta name="description" content="A very simple content management system using codeigniter framework,bootstrap , jquery and mysql">
+<title>Neko Zone - <?php echo $page_title; ?></title>
+<meta name="robots" content="all">
 
-	<title>Neko Zone - <?php echo $page_title; ?></title>
+<?php foreach($site_keywords as $sitekeywords): ?>
+<meta name="keywords" content="<?php echo $sitekeywords['configValue'];?>">
+<?php endforeach; ?>
+
+<?php foreach($site_desc as $sitedesc): ?>
+<meta name="description" content="<?php echo $sitedesc['configValue'];?>">
+<?php endforeach; ?>
+
+<meta name="author" content="Novhex">
+
+
+	
+
+
+	
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>

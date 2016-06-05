@@ -47,7 +47,7 @@ defined('BASEPATH') or exit('Error!');
 									<td><?php echo $index['category_name'];?></td>
 									<td><?php echo $index['parent_page'];?></td>
 									<td>
-										<a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+										<a href="<?php echo base_url('admin/edit-category').'/'.$index['category_slug'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
 										<a href="" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i> Delete</a>
 										<a class="btn btn-primary btn-sm movecategory" data-categid="<?php echo $index['categ_ID'];?>"><i class="fa fa-mail-forward"></i> Move</a>
 									</td>

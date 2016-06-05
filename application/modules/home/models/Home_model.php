@@ -75,5 +75,37 @@ class Home_model extends CI_Model{
 		   		$query = $this->db->get();
 
 		   		return $query->result_array();
-   }
+	}
+	
+
+	public function get_category_name($categID){
+		$this->db->where('categories.categ_ID',$categID);
+		$query = $this->db->get('categories');
+		foreach($query->result_array() as $index){
+			return $index['category_name'];
+		}
+	}
+
+
+	public function getsite_meta_description(){
+		$this->db->where('site_info.configID',2);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+
+		public function getsite_footer(){
+		$this->db->where('site_info.configID',5);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+	
+
+		public function getsite_meta_keywords(){
+		$this->db->where('site_info.configID',4);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
+	
+
+
 }
