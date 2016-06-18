@@ -36,22 +36,4 @@ class Pageslib{
 			return $index['usrs_full_name'];
 		}
 	}
-
-
-	public function getSiteTitle(){
-		$this->CI->db->where('site_info.configID',1);
-		$query= $this->CI->db->get('site_info');
-		foreach($query->result_array() as $index){
-			return $index['configValue'];
-		}
-	}
-
-	public function setArticleTitle($slug){
-		$this->CI->db->where('posts.slug',str_replace("_", "-", $slug));
-		$query = $this->CI->db->get('posts');
-		
-		foreach($query->result_array() as $index){
-			return $index['title'];
-		}
-	}
 }

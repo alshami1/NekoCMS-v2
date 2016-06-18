@@ -86,4 +86,41 @@ class Page_model extends CI_Model{
 		return $this->db->update('pages',$data);
     }
 	
+	public function get_subscriber_data($options = array()) {
+		$query = $this->db->get('newsletter');
+		if(isset($options['id']))
+        return $query->row(0);
+		return $query->result();
+	}
+	
+	public function unread_message_count() {
+		$this->db->where('messages.is_read', 'N');
+		$this->db->from('messages');
+		return $this->db->count_all_results();
+    }
+	
+	public function fetch_unread_messages($cfg_page,$offset){
+		$query=$this->db->order_by('msgID', 'DESC');
+		$query=$this->db->get('messages',$cfg_page,$offset);
+		return $query->result_array();
+    }
+	
+	public function viewmsg($msgid){
+		$query = $this->db->get_where('messages', array('msgID' => $msgid));
+        if($query->row_array()==NULL){
+          return FALSE;
+        }else{
+          $data=array('is_read'=>'Y');
+          $this->db->where('messages.msgID',$msgid);
+          $this->db->update('messages',$data);
+          return $query->row_array();
+		}
+	}
+	
+	public function delete_message($id){
+		$this->db->where('messages.msgID',$id);
+		return $this->db->delete('messages');
+	}
+	
+	
 }

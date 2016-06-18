@@ -136,11 +136,11 @@ class Users_model extends CI_Model{
 
 	
 	public function updatesiteInfo(){
-		$this->updateBlogTitle($this->input->post('txt_site_title',TRUE));
-		$this->updateBlogMeta($this->input->post('site_meta',TRUE));
-		$this->updateBlogMetaKeywords($this->input->post('site_metakw',TRUE));
-		$this->updateBlogOwner($this->input->post('txt_site_owner',TRUE));
-		$this->updateSiteFooter($this->input->post('site_footer',TRUE));
+		$this->updateBlogTitle($this->input->post('txt_site_title',true));
+		$this->updateBlogMeta($this->input->post('site_meta',true));
+		$this->updateBlogMetaKw($this->input->post('site_metakw',true));
+		$this->updateBlogOwner($this->input->post('txt_site_owner',true));
+		$this->updateSiteFooter($this->input->post('site_footer',true));
 	}
 	
 	public function updateUserPic($path){
@@ -152,7 +152,11 @@ class Users_model extends CI_Model{
 	return $this->db->update('users',$data);
 	}
 	
-
+	
+	public function resetDisplayPhotoSession($newpath){
+		unset($_SESSION['display_photo']);
+		$_SESSION['display_photo']=$newpath;
+	}
 	
 	
 	public function updateBlogTitle($new_val){
@@ -171,7 +175,7 @@ class Users_model extends CI_Model{
         return $this->db->update('site_info',$data);
 	}
 
-	public function updateBlogMetaKeywords($mkw){
+	public function updateBlogMetaKw($mkw){
 			$data=array(
 				'configValue'=>$mkw
 			);

@@ -37,6 +37,7 @@ class Twitterbootstrap {
 				 'twitter_bootstrap_js'=>base_url('assets/js/bootstrap.min.js'),
 				 'bootbox_js'=>base_url('assets/js/bootbox.js'),
 				 'data_tables_js'=>base_url('assets/js/dataTables.js'),
+				 'neko'=>base_url('assets/js/neko.js'),
 				 'nekocms'=>base_url('assets/js/nekocms.js')
 				);
 		}

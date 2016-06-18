@@ -22,6 +22,8 @@ $(document).ready(function(){
 
 });
 
+
+
 	function add_page(page_title){
 		
 		$.ajax({

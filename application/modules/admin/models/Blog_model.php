@@ -96,7 +96,39 @@ class Blog_model extends CI_Model{
         
         return $query->result_array();
    }
+   
+	public function getBlogComments() {
+        $query = $this->db->join('posts','posts.postID = article_comments.news_id ','INNER');
+        $query = $this->db->get('article_comments');
+        return $query->result_array();
+		
+    }
+	
+	public function comment_action($action,$comment_id) {
+        if($action==1){
 
+            $data =array('is_approved'=>1);
+            $this->db->where('article_comments.c_id',$comment_id);
+            return $this->db->update('article_comments',$data);
+        }
+        else if($action==0){
 
+            $data =array('is_approved'=>0);
+            $this->db->where('article_comments.c_id',$comment_id);
+            return $this->db->update('article_comments',$data);
+        }
+        else if($action==2){
+          $this->db->where('article_comments.c_id',$comment_id);
+          return $this->db->delete('article_comments');
+        }
+
+    }
+	
+	public function getBlogCommentbyId($c_id) {
+        $query = $this->db->join('posts','posts.postID = article_comments.news_id ','INNER');
+        $query = $this->db->where('article_comments.c_id',$c_id);
+        $query = $this->db->get('article_comments');
+        return $query->result_array();
+    }
 
 }

@@ -46,6 +46,7 @@ defined('BASEPATH') or exit('Error!');
 					<?php foreach($footer as $fr): ?>
                     <p class="copyright text-muted">&copy;<?php echo $fr['configValue'];?> 2015 - <?php echo date("Y"); ?></p>
 					<?php endforeach; ?>
+					<center><p><a href="<?php echo base_url('home/contactus');?>">Contact Us</a></p></center>
                 </div>
             </div>
         </div>

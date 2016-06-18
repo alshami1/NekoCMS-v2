@@ -32,7 +32,7 @@ $userData=$this->session->all_userdata();
                             <div class="card-body">
                        <?php
            if(validation_errors()){
-           echo validation_errors();
+           echo "<div class='alert alert-danger' style='width:965px; height:200px;'><a class='close' data-dismiss='alert'>×</a>".validation_errors()."</div>";
            }
            if($this->session->flashdata('changes1')!=''){
 
@@ -94,7 +94,7 @@ $userData=$this->session->all_userdata();
                        <div class='col-lg-5'>
 
                         <br>
-                        <button type='submit'  name='btn_publish' class='btn btn-success' style='font-weight: bold; font-size: 16px;'><span class='glyphicon glyphicon-ok'></span>&nbsp;<strong> Save Now </strong></button>
+                        <button type='submit'  name='btn_publish' class='btn btn-success' style='width: 160px; font-weight: bold; font-size: 16px;'><span class='glyphicon glyphicon-ok'></span>&nbsp;<strong> Save Now </strong></button>
 
                        </div>
                    </div>

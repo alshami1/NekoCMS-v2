@@ -25,7 +25,10 @@ class Admin extends CI_Controller{
 		$this->load->helper(array('url','adminvalidation','form'));
 		$this->load->library(array('adminlib','twitterbootstrap','form_validation','session','pagination'));
 		$this->load->model(array('users_model','page_model','category_model','blog_model'));
+		
+		
 	}
+	
 
 	public function index(){
 
@@ -39,6 +42,7 @@ class Admin extends CI_Controller{
 			$data['page_title'] = 'Admin Login';
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
 			$this->load->view('admin_login',$data);
 			
 		}else{
@@ -74,6 +78,7 @@ class Admin extends CI_Controller{
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
 			$data['parent_pages'] = $this->page_model->_getPagesData('pages',NULL);
+			$data['message_count']=$this->page_model->unread_message_count();
 			$data['page_title'] = 'Add Category';
 			$this->load->view('tpl/head',$data);
 			$this->load->view('admin-addcategory');
@@ -103,6 +108,7 @@ class Admin extends CI_Controller{
 		
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Add Page Category';
 		$data['parent_pages'] = $this->page_model->_getPagesData('pages',NULL);
 		$this->load->view('tpl/head',$data);
@@ -139,6 +145,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Add User';
 		$this->load->view('tpl/head',$data);
 		$this->load->view('tpl/navbar');
@@ -177,6 +184,7 @@ class Admin extends CI_Controller{
            $config['total_rows'] =  $this->blog_model->countpost_from_category($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'));
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
 			$data['page_title'] = 'Blog Post(s)';
 			$data['user_posts'] =$this->blog_model->user_blogs($this->session->userdata('site_user_id'),$this->session->userdata('site_user_role'),$offset,$config['total_rows']);
 			$this->load->view('tpl/head',$data);
@@ -191,6 +199,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Categories';
 		$data['categories']= $this->category_model->get_all_categories();
 		$this->load->view('tpl/head',$data);
@@ -208,6 +217,7 @@ class Admin extends CI_Controller{
 		if($this->form_validation->run()===FALSE){
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
             $data['page_title'] = 'Edit Page Category';
 			$data['category_to_edit']= $this->category_model->get_category($category);
             $this->load->view('tpl/head',$data);
@@ -234,6 +244,7 @@ class Admin extends CI_Controller{
 			
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
 			$data['page_title'] = 'Dashboard';
 			$this->load->view('tpl/head',$data);
 			$this->load->view('tpl/navbar');
@@ -254,6 +265,7 @@ class Admin extends CI_Controller{
 
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
 			$data['page_title'] = 'Edit Blog';
 			$data['blog']=$this->blog_model->get_blog($slug);
 			$this->load->view('tpl/head',$data);
@@ -316,6 +328,7 @@ class Admin extends CI_Controller{
 
 				$data['css_files'] = $this->twitterbootstrap->load_css_files();
 				$data['js_files'] = $this->twitterbootstrap->load_js_files();
+				$data['message_count']=$this->page_model->unread_message_count();
 				$data['page_title'] = 'Edit Front End HTML';
 				$data['file_to_edit'] = $this->file;
 				$this->load->view('tpl/head',$data);
@@ -351,6 +364,7 @@ class Admin extends CI_Controller{
 		if($this->form_validation->run()===FALSE){
 			$data['css_files'] = $this->twitterbootstrap->load_css_files();
 			$data['js_files'] = $this->twitterbootstrap->load_js_files();
+			$data['message_count']=$this->page_model->unread_message_count();
             $data['page_title'] = 'Edit Page';
 			$data['page_to_edit']= $this->page_model->get_page($page);
             $this->load->view('tpl/head',$data);
@@ -430,6 +444,7 @@ class Admin extends CI_Controller{
 
 					$data['css_files'] = $this->twitterbootstrap->load_css_files();
 					$data['js_files'] = $this->twitterbootstrap->load_js_files();
+					$data['message_count']=$this->page_model->unread_message_count();
 					$data['user_info'] = $this->users_model->_getUsersData('users',array(array('field'=>'usrs_ID','parameter'=>$user_id)));
 					$data['page_title'] = 'Edit User';
 					$this->load->view('tpl/head',$data);
@@ -498,6 +513,7 @@ class Admin extends CI_Controller{
 
 					$data['css_files'] = $this->twitterbootstrap->load_css_files();
 					$data['js_files'] = $this->twitterbootstrap->load_js_files();
+					$data['message_count']=$this->page_model->unread_message_count();
 					$data['user_info'] = $this->users_model->_getUsersData('users',array(array('field'=>'usrs_ID','parameter'=>$user_id)));
 					$data['page_title'] = 'Edit User';
 					$this->load->view('tpl/head',$data);
@@ -556,6 +572,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Front End Themes';
 		$this->load->view('tpl/head',$data);
 		$this->load->view('tpl/navbar');
@@ -576,6 +593,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Parent Pages';
 		$data['parent_pages'] = $this->page_model->_getPagesData('pages',NULL);
 		$this->load->view('tpl/head',$data);
@@ -589,6 +607,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'User List';
 		$data['users']	= $this->users_model->_getUsersData('users',NULL);
 		$this->load->view('tpl/head',$data);
@@ -601,6 +620,7 @@ class Admin extends CI_Controller{
 
 		$data['css_files'] = $this->twitterbootstrap->load_css_files();
 		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
 		$data['page_title'] = 'Write a new post';	
 		$data['categories']= $this->category_model->get_all_categories();	
 
@@ -645,7 +665,6 @@ class Admin extends CI_Controller{
 		$this->form_validation->set_rules('site_meta','Site Meta','required|trim|max_length[250]');
 		$this->form_validation->set_rules('site_metakw','Site Meta Keywords','required|trim');
 		$this->form_validation->set_rules('site_footer','Footer','required|trim|max_length[80]');
-		$this->form_validation->set_error_delimiters("<p style='color:red;'>* ","</p>");
 		
 		if($this->form_validation->run()===FALSE){
 
@@ -654,6 +673,7 @@ class Admin extends CI_Controller{
 			$data['site_title']=$this->users_model-> getsite_title();
 			$data['site_metakw'] = $this->users_model->getsite_meta_keywords();
 			$data['footer'] = $this->users_model->getsite_footer();
+			$data['message_count']=$this->page_model->unread_message_count();
 			$this->load->view('tpl/head',$data);
 			$this->load->view('tpl/navbar');
 			$this->load->view('admin_settings', $data);
@@ -666,6 +686,150 @@ class Admin extends CI_Controller{
 
 	}
 	
+	public function uploadPhoto($source_file,$file_name,$project_url){
+		if($source_file!=NULL){
+		$rand_name=md5(mt_rand(1,999999999));
+			if(isset($file_name)&&isset($source_file))
+			{
+				for($i=0; $i<=1;$i++)
+					{
+						if(getimagesize($source_file[$i])>0) {
+						$uploaded_state=move_uploaded_file($source_file[$i],$this->dir_path.$rand_name.$file_name[$i]);
+						//update photo
+						$this->users_model->updateUserPic($project_url.str_replace('./','',$this->dir_path).$rand_name.$file_name[$i]);
+					}
+				}
+			}
+		}
+	}
+	
+	public function newsletter() {
+		$data['css_files'] = $this->twitterbootstrap->load_css_files();
+		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
+		$data['page_title'] = 'Newsletter';
+		$this->load->view('tpl/head',$data);
+		$this->load->view('tpl/navbar');
+		$this->load->view('admin_newsletter',$data);
+		$this->load->view('tpl/footer',$data);
+	}
+	
+	public function send() {
+		$subscribers = $this->page_model->get_subscriber_data();
+		foreach($subscribers as $subscriber)
+    {
+		$this->load->library('email');
+        $this->load->helper('typography');
+
+        //Format email content using an HTML file
+        $mes = $this->input->post('content');
+		$subj = $this->input->post('subject');
+
+        $config['mailtype'] = 'html';
+        $this->email->initialize($config);
+
+        $this->email->from('no-reply@neko.com', 'Neko Admin');
+        $this->email->to($subscriber->email);
+        $this->email->subject($subj);
+        $this->email->message($mes);
+
+        $this->email->send();
+		echo $this->email->print_debugger();
+		$this->email->clear();
+    }
+	
+	if($this->email->send())
+        {       
+            //echo 'Your email was sent.';
+			$this->session->set_flashdata('success', 'Newsletterr Sent');
+			$this->load->view('admin_newsletter', $data);
+        }
+	
+	}
+	
+	public function comments () {	
+		$data['css_files'] = $this->twitterbootstrap->load_css_files();
+		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['message_count']=$this->page_model->unread_message_count();
+		$data['page_title'] = 'Comments';
+		$data['comments']=$this->blog_model->getBlogComments();
+		$this->load->view('tpl/head',$data);
+		$this->load->view('tpl/navbar');
+		$this->load->view('admin_comments',$data);
+		$this->load->view('tpl/footer',$data);  
+	}
+	
+	public function commentaction(){
+		$action = $this->input->post('comment_action');
+        $comment_id =$this->input->post('comment_id');
+		echo $this->blog_model->comment_action($action,$comment_id);
+	}
+	
+	public function viewcomment(){
+		$c_id = $this->input->post('comment_id');
+		$comment_data['contents'] = $this->blog_model->getBlogCommentbyId($c_id);
+		$this->load->view('admin_commentpopup',$comment_data);
+	}
+
+	public function inbox($offset=0){
+    
+		$uri_segment = 3;
+		$offset = $this->uri->segment($uri_segment);
+		$config['base_url'] = base_url().'admin/inbox';
+		$config['total_rows'] =$this->page_model->unread_message_count();
+		$config['per_page'] = 10;
+		$config['prev_link'] = '&laquo;';
+		$config['next_link'] = '&raquo;';
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['prev_link'] = '&laquo;';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['uri_segment'] = $uri_segment;
+		$this->pagination->initialize($config);
+		$data['message_count']=$this->page_model->unread_message_count();
+		$data['message_list']=$this->page_model->fetch_unread_messages(10,$offset);
+		$data['css_files'] = $this->twitterbootstrap->load_css_files();
+		$data['js_files'] = $this->twitterbootstrap->load_js_files();
+		$data['page_title'] = 'Inbox';
+		$this->load->view('tpl/head',$data);
+		$this->load->view('tpl/navbar');
+		$this->load->view('admin_inbox');
+		$this->load->view('tpl/footer',$data);
+	}
+	
+	public function showmessage($msgid){
+		if(empty($msgid))
+		{
+			redirect('admin/inbox');
+		} else{
+			if($this->page_model->viewmsg($msgid)!=NULL){
+				$data['msg_content']=$this->page_model->viewmsg($msgid);
+				$data['message_count']=$this->page_model->unread_message_count();
+				$data['css_files'] = $this->twitterbootstrap->load_css_files();
+				$data['js_files'] = $this->twitterbootstrap->load_js_files();
+				$data['page_title'] = 'Inbox';
+				$this->load->view('tpl/head',$data);
+				$this->load->view('tpl/navbar');
+				$this->load->view('admin_viewmessage');
+				$this->load->view('tpl/footer',$data);
+			}else{
+				redirect('admin/inbox');
+			}
+		}
+	}
+	
+	public function deletemessage($msgid){
+		$this->page_model->delete_message($msgid);
+		$this->session->set_flashdata('msgdelete_success','Message Succesfully Deleted');
+		redirect(base_url().'admin/inbox');
+	}
 
 
 }

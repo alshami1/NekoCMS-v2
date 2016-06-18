@@ -46,6 +46,7 @@
 						<div class="col-sm-12">
 						<label></label>
 						<button id="btnlogin" class="btn btn-primary btn-block" style="margin-bottom: 12px;"><i class="fa fa-arrow-right"></i> LOGIN </button>
+						<a href="<?php echo base_url(''); ?>" class="btn btn-primary btn-block" style="margin-bottom: 12px;"><i class="fa fa-home"></i> RETURN HOME </a>
 						</div>
 						</div>
 				</form>

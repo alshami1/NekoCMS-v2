@@ -17,9 +17,7 @@ defined('BASEPATH') or exit('Error!');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
- <title> <?php echo $this->pageslib->getSiteTitle()." "; ?> <?php  echo" - ".$category_name=='' ?  $page_title :   " ".$category_name;  ?>  <?php echo isset($url_slug)==NULL ? "" : " - ".$this->pageslib->setArticleTitle($url_slug); ?> </title>
- 
+<title>Neko Zone - <?php echo $page_title; ?></title>
 <meta name="robots" content="all">
 <?php foreach($site_keywords as $sitekeywords): ?>
 <meta name="keywords" content="<?php echo $sitekeywords['configValue'];?>">

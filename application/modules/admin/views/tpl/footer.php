@@ -234,7 +234,107 @@ defined('BASEPATH') or exit('Error!');
                   });
                 </script>
 
-            <?php }?>
+            
+			
+			<?php } if($current_uri_segment=='comments'){?>
+			 <script type="text/javascript">
+			  $("#tbl_users_comments").DataTable();
+    
+        
+           
 
+            $(document).on('click','.approvecomment',function(){
+                    var id=this.dataset.commentid;
+
+                    bootbox.confirm("Are you sure you want to approve this comment?",function(x){
+                            if(x==true){
+                                 $(ajax_comment_action(1,id));
+                            }
+                    });
+
+            });
+
+           $(document).on('click','.disapprovecomment',function(){
+                    var id=this.dataset.commentid;
+
+                    bootbox.confirm("Are you sure you want to disapprove this comment?",function(x){
+                            if(x==true){
+                                 $(ajax_comment_action(0,id));
+                            }
+                    });
+
+            });
+
+
+          $(document).on('click','.viewcomment',function(){
+                var id = this.dataset.commentid;
+
+                       popup = bootbox.dialog({
+                        title: 'Comment',
+                        message: "<center><img src='"+"<?php echo base_url('images/loader.gif'); ?>"+"'></center>",
+                        size: 'large',
+                        onEscape: function(){
+                    }
+
+                    });
+
+                $.ajax({
+                    url: "<?php echo base_url('admin/viewcomment'); ?>",
+                    data: "comment_id="+id,
+                    type: "POST",
+                    success:function(response){
+                        popup.contents().find('.bootbox-body').html(response);
+                    }
+                });
+
+          });
+        
+         $(document).on('click','.deletecomment',function(){
+                    var id=this.dataset.commentid;
+
+                    bootbox.confirm("Are you sure you want to delete this comment?",function(x){
+                            if(x==true){
+                                $(ajax_comment_action(2,id));
+                            }
+                    });
+
+            });
+
+
+         function ajax_comment_action(action,comment_id){
+                $.ajax({
+                    url: "<?php echo base_url('admin/commentaction'); ?>",
+                    data: "comment_action="+action+"&comment_id="+comment_id,
+                    type: "POST",
+                    success:function(response){
+                        if(response==1){
+                           window.location = "<?php echo base_url('admin/comments'); ?>";
+                        }
+                    }   
+                });
+         }
+
+  
+    </script>
+	
+	<?php } if($current_uri_segment=='inbox'){?>
+	
+		<script type="text/javascript">
+			$("#msgTable").DataTable();
+			
+			
+		$(document).on('click','.deletemsg',function(){
+			var msgid =this.dataset.id;
+				bootbox.confirm('Are you sure you want to delete this message',function(x){
+					if(x==true){
+						window.location="<?php echo base_url('admin/deletemessage');?>"+"/"+msgid;
+					}
+				});
+			});
+		
+		</script>
+
+	<?php }?>
+	
 	</body>
 </html>

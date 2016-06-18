@@ -19,15 +19,12 @@ defined('BASEPATH') or exit('Error!');
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Neko Zone - <?php echo $page_title; ?></title>
 <meta name="robots" content="all">
-
 <?php foreach($site_keywords as $sitekeywords): ?>
 <meta name="keywords" content="<?php echo $sitekeywords['configValue'];?>">
 <?php endforeach; ?>
-
 <?php foreach($site_desc as $sitedesc): ?>
 <meta name="description" content="<?php echo $sitedesc['configValue'];?>">
 <?php endforeach; ?>
-
 <meta name="author" content="Novhex">
 
 

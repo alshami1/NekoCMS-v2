@@ -133,6 +133,24 @@ defined('BASEPATH') or exit('Error!');
                                     </div>
                                 </div>
                             </li>
+							
+							<li class="">
+                                <a href="<?php  echo base_url('admin/newsletter');?>">
+                                    <span class="icon fa fa-pencil"></span><span class="title">Newsletter</span>
+                                </a>
+                            </li>
+							
+							<li class="">
+                                <a href="<?php  echo base_url('admin/comments');?>">
+                                    <span class="icon fa fa-comments"></span><span class="title">Comments</span>
+                                </a>
+                            </li>
+
+							<li class="">
+                                <a href="<?php  echo base_url('admin/inbox');?>">
+                                    <span class="icon fa fa-envelope"></span><span class="title">Inbox (<?php echo $message_count; ?>)</span>
+                                </a>
+                            </li>
                       
                             <!-- Dropdown-->
                             <li class="">
