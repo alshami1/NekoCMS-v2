@@ -7,6 +7,7 @@
 * @ Copyright (c) 2015-2016
 * @ License MIT
 */
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
@@ -15,10 +16,14 @@ class Home extends CI_Controller {
   	private $str_output;
 
     public function __construct() {
+
         parent::__construct();
         $this->load->helper(array('url','text'));
         $this->load->library(array('session','pagination','twitterbootstrap','form_validation','pageslib','themelib'));
         $this->load->model(array('home_model'));
+
+
+        //Set Default theme. currently the theme selection is disabled
 
         if($this->themelib->is_custom_theme_activated()=='Yes'){
           $this->theme = $this->themelib->get_custom_theme_path();
@@ -62,7 +67,7 @@ class Home extends CI_Controller {
             $data['latest_articles']=$this->home_model->_getLatest($config['per_page'], $this->uri->segment(3));
         }
 			
-		//END
+
 		
         $data['css_files']=$this->twitterbootstrap->load_css_files();
         $data['js_files']=$this->twitterbootstrap->load_js_files();
@@ -73,7 +78,6 @@ class Home extends CI_Controller {
 		$data['footer'] =$this->home_model->getsite_footer();
 		$data['latest_comments']=$this->home_model->_getLatestComments();
 		$data['latest_posts']=$this->home_model->_getLatestPosts();
-        //$data['latest_articles']=$this->home_model->_getLatest();
         $this->load->view('tpl/'.$this->theme.'head',$data);
         $this->load->view('tpl/'.$this->theme.'navbar',$data);
         $this->load->view('home',$data);
@@ -83,9 +87,10 @@ class Home extends CI_Controller {
 
 	public function article($slug){
 
+		$slug = str_replace("_","-",$slug);
+		$datasize =$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
 
-		$datasize =$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>str_replace("_","-",$slug ))));
-
+		
 
 		if(sizeof($datasize)>0){
 
@@ -99,7 +104,7 @@ class Home extends CI_Controller {
 			$data['css_files']=$this->twitterbootstrap->load_css_files();
 			$data['js_files']=$this->twitterbootstrap->load_js_files();
 			$data['pages'] =$this->home_model->_getHomeData('pages',NULL);
-			$data['categ_post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>str_replace("_","-",$slug ))));
+			$data['categ_post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
 			$data['page_title']='Category Posts';
 			$data['site_desc'] = $this->home_model->getsite_meta_description();
 			$data['site_keywords'] =$this->home_model->getsite_meta_keywords();
@@ -111,9 +116,17 @@ class Home extends CI_Controller {
 		
 		}
 		else
-		{
+		{	
+			if($this->session->userdata('site_user')==''){
 			$response = $this->home_model->savecomment($this->input->post('news_id'),
-            $this->input->post('name'),$this->input->post('email'),date('Y-m-d'),$this->input->post('comment'));
+            $this->input->post('name'),$this->input->post('email'),date('Y-m-d'),$this->input->post('comment'),0);	
+			}
+
+			if($this->session->userdata('site_user')!=''){
+			$response = $this->home_model->savecomment($this->input->post('news_id'),
+            $this->input->post('name'),$this->input->post('email'),date('Y-m-d'),$this->input->post('comment'),1);	
+			}
+			
 
             if($response==1){
 				$this->session->set_flashdata('comment_submitted','Your comment has been saved.');

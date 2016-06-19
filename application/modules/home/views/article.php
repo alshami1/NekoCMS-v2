@@ -47,7 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="container">
             <div class="row">
                     <div class="col-md-12">
-                         <h3> Comments: </h3>
+                         
+                         <h3>Post Comments</h3>
+                         <a class="btn btn-primary btn-xs pull-right" id="commentcontrol">Hide Comments</a>
 <hr>
                          <div id="comments">
                          
@@ -62,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <form action="" method="POST" accept-charset="utf-8">
                             <input type="hidden" name="news_id" id="news_id" value="<?php echo $index['postID']; ?>" />
                             <label><?php echo form_error('name'); ?></label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter Your Name" value="<?php echo set_value('name');?>" />
+                            <input type="text" name="name" class="form-control" placeholder="Enter Your Name" value="<?php echo $this->session->userdata('site_user')=='' ? set_value('name') : $this->session->userdata('site_user');?>" />
                             <label><?php echo form_error('email'); ?></label>
                             <input type="text" name="email" placeholder="Email Address" class="form-control" value="<?php echo set_value('email'); ?>"/>
                             <label><?php echo form_error('comment');?></label>
@@ -91,9 +93,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
          $(set_base_url("<?php echo base_url(); ?>"));
          $(loadComments(newsID));
 
+
+         //hide/show div for comments button
+         $('#commentcontrol').click(function(){
+
+          if($(this).html()=='Hide Comments'){
+            $('#comments').hide();
+            $(this).html("Show Comments");
+          }else{
+                $('#comments').show();
+            $(this).html("Hide Comments");
+          }
+
+         });
+
     });
 
-    function loadComments(news_id){
+
+
+  function loadComments(news_id){
   
   $.ajax({
     url: "<?php echo base_url('home/loadcomments'); ?>",
@@ -104,5 +122,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
   });
 }
+
 
       </script>

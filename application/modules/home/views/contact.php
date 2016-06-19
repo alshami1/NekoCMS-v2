@@ -1,3 +1,13 @@
+<?php
+/*
+*  NEKO SIMPLE CMS v1.0.3 R1
+* @ Developer: Novi
+* @ Email: novhz0514@gmail.com
+* @ Github: github.com/novhex
+* @ Copyright (c) 2015-2016
+* @ License MIT
+*/
+?>
 <div class="container" style="margin-top: 70px;">
 	<div class="row">
 		<div class="col-md-8">

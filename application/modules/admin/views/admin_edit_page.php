@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 *  NEKO SIMPLE CMS v1.0.3 R1
 * @ Developer: Novi

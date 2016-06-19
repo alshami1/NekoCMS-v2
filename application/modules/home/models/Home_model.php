@@ -152,14 +152,14 @@ class Home_model extends CI_Model{
 		return $query->result_array();
 	}
    
-    public function savecomment($newsID,$name,$email,$date,$comment){
+    public function savecomment($newsID,$name,$email,$date,$comment,$is_approved){
         $data = array(
 			'news_id'=>$newsID,
 			'name'=>$name,
 			'email'=>$email,
 			'comment_date'=>$date,
 			'comment'=>$comment,
-			'is_approved'=>0
+			'is_approved'=>$is_approved
         );
         return $this->db->insert('article_comments',$data);
     }
