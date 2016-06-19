@@ -75,6 +75,7 @@ class Home extends CI_Controller {
         $data['page_title']='Home';
 		$data['site_desc'] = $this->home_model->getsite_meta_description();
 		$data['site_keywords'] =$this->home_model->getsite_meta_keywords();
+		$data['site_title']=$this->home_model->getsite_title();
 		$data['footer'] =$this->home_model->getsite_footer();
 		$data['latest_comments']=$this->home_model->_getLatestComments();
 		$data['latest_posts']=$this->home_model->_getLatestPosts();
@@ -106,6 +107,7 @@ class Home extends CI_Controller {
 			$data['pages'] =$this->home_model->_getHomeData('pages',NULL);
 			$data['categ_post']=$this->home_model->_getHomeData('posts',array(array('field'=>'slug','parameter'=>$slug)));
 			$data['page_title']='Category Posts';
+			$data['site_title']=$this->home_model->getsite_title();
 			$data['site_desc'] = $this->home_model->getsite_meta_description();
 			$data['site_keywords'] =$this->home_model->getsite_meta_keywords();
 			$data['footer'] =$this->home_model->getsite_footer();
@@ -171,6 +173,7 @@ class Home extends CI_Controller {
            $data['js_files']=$this->twitterbootstrap->load_js_files();
            $data['pages'] =$this->home_model->_getHomeData('pages',NULL);
            $data['page_title']='Category Posts';
+           $data['site_title']=$this->home_model->getsite_title();
 		   $data['site_desc'] = $this->home_model->getsite_meta_description();
 		   $data['site_keywords'] =$this->home_model->getsite_meta_keywords();
 		   $data['footer'] =$this->home_model->getsite_footer();
@@ -229,6 +232,7 @@ class Home extends CI_Controller {
         $data['js_files']=$this->twitterbootstrap->load_js_files();
         $data['pages'] = $this->home_model->_getHomeData('pages',NULL);
         $data['page_title']='Home';
+        $data['site_title']=$this->home_model->getsite_title();
 		$data['site_desc'] = $this->home_model->getsite_meta_description();
 		$data['site_keywords'] =$this->home_model->getsite_meta_keywords();
 		$data['footer'] =$this->home_model->getsite_footer();
@@ -253,6 +257,7 @@ class Home extends CI_Controller {
 			$data['js_files']=$this->twitterbootstrap->load_js_files();
 			$data['pages'] = $this->home_model->_getHomeData('pages',NULL);
 			$data['page_title']='Home';
+			$data['site_title']=$this->home_model->getsite_title();
 			$data['site_desc'] = $this->home_model->getsite_meta_description();
 			$data['site_keywords'] =$this->home_model->getsite_meta_keywords();
 			$data['footer'] =$this->home_model->getsite_footer();

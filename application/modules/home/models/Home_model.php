@@ -190,6 +190,13 @@ class Home_model extends CI_Model{
 		$query=$this->db->get('site_info');
 		return $query->result_array();
 	}
+
+	public function getsite_title(){
+
+		$this->db->where('site_info.configID',1);
+		$query=$this->db->get('site_info');
+		return $query->result_array();
+	}
 	
 	public function getsite_footer(){
 		$this->db->where('site_info.configID',5);

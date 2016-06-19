@@ -17,7 +17,9 @@ defined('BASEPATH') or exit('Error!');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Neko Zone - <?php echo $page_title; ?></title>
+<?php foreach($site_title as $s_title): ?>
+<title> - <?php echo $s_title['configValue']." - ".$page_title; ?></title>
+<?php endforeach; ?>
 <meta name="robots" content="all">
 <?php foreach($site_keywords as $sitekeywords): ?>
 <meta name="keywords" content="<?php echo $sitekeywords['configValue'];?>">
